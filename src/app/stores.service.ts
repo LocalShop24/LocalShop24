@@ -20,7 +20,7 @@ export interface CartItem {
 export interface CartStore {
   id: number;
   name: string;
-  items: {[key: string]: CartItem};
+  items: { [key: string]: CartItem };
 }
 
 export interface Item {
@@ -171,23 +171,41 @@ export class StoresService {
     if (Object.keys(cartStore.items).length === 0) {
       delete this.cart[cartStore.id];
     }
-    this.cart$.next(Object.values(this.cart));
+    this.emitCart();
     this.cartCount$.next(this.cartCount$.getValue() - 1);
   }
 
   removeQty(store: CartStore, item: CartItem) {
+    this.changeCartItem(store, item, cartItem => {
+      cartItem.qty -= 1;
+      if (cartItem.qty === 0) {
+        this.removeItemFromCartStore(store, item);
+      } else {
+        this.emitCart();
+      }
+    });
+  }
+
+  private changeCartItem(store: CartStore, item: CartItem,
+                         callback: (cartItem: CartItem) => void) {
     if (!this.cart[store.id]) {
       return;
     }
     const cartStore = this.cart[store.id];
     if (cartStore.items[item.storeItem.name]) {
       const cartItem = cartStore.items[item.storeItem.name];
-      cartItem.qty -= 1;
-      if (cartItem.qty === 0) {
-        this.removeItemFromCartStore(store, item);
-      } else {
-        this.cart$.next(Object.values(this.cart));
-      }
+      callback(cartItem);
     }
+  }
+
+  private emitCart() {
+    this.cart$.next(Object.values(this.cart));
+  }
+
+  addQty(store: CartStore, item: CartItem) {
+    this.changeCartItem(store, item, cartItem => {
+      cartItem.qty += 1;
+      this.emitCart();
+    });
   }
 }

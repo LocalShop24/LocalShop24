@@ -17,15 +17,15 @@ Folgende Produkte befinden sich aktuell in deinem Warenkorb.
           </p>
         </div>
         <div class="flexDiv">
-          <!--      <button mat-mini-fab class="removeButton" (click)="removeItem(store, item)">-->
-          <!--        <mat-icon>remove</mat-icon>-->
-          <!--      </button>-->
           <button mat-raised-button (click)="removeItem(store, item)">
             löschen
           </button>
         </div>
       </div>
       <div class="addRemoveButton">
+        <button mat-mini-fab (click)="addQty(store, item)">
+          <mat-icon>add</mat-icon>
+        </button>
         <button mat-mini-fab class="removeButton" (click)="removeQty(store, item)">
           <mat-icon>remove</mat-icon>
         </button>

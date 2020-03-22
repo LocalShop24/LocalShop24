@@ -47,4 +47,8 @@ export class CartComponent implements OnInit {
   removeQty(store: CartStore, item: CartItem) {
     this.storesService.removeQty(store, item);
   }
+
+  addQty(store: CartStore, item: CartItem) {
+    this.storesService.addQty(store, item);
+  }
 }
