@@ -3,6 +3,7 @@ import {BehaviorSubject} from 'rxjs';
 import {FormControl, FormGroup} from '@angular/forms';
 import {Store, StoresService} from '../stores.service';
 import {debounceTime, switchMap} from 'rxjs/operators';
+import {Router} from '@angular/router';
 
 declare var ol: any;
 declare const OpenLayers: any;
@@ -20,7 +21,8 @@ export class ProductsComponent implements OnInit {
 
   map: any;
 
-  constructor(public storesService: StoresService) {
+  constructor(public storesService: StoresService,
+              private router: Router) {
     storesService.getStores().subscribe(next => this.stores$.next(next));
   }
 
@@ -65,7 +67,8 @@ export class ProductsComponent implements OnInit {
         return featureClicked;
       });
       if (feature) {
-        console.log(feature.N.store);
+        const store = feature.N.store;
+        this.storeClick(store);
       }
     });
   }
@@ -95,5 +98,9 @@ export class ProductsComponent implements OnInit {
     });
 
     this.map.addLayer(vectorLayer);
+  }
+
+  private storeClick(store: Store) {
+    this.router.navigateByUrl('/store/' + store.id);
   }
 }

@@ -1,0 +1,4 @@
+<mat-card *ngIf="(store$ | async) as store">
+  <mat-card-title>{{store.name}}</mat-card-title>
+  <mat-card-subtitle>{{store.distance}}</mat-card-subtitle>
+</mat-card>

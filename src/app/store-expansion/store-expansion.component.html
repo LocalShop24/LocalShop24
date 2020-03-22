@@ -11,7 +11,7 @@
         </mat-panel-description>
       </mat-expansion-panel-header>
       <mat-list>
-        <button mat-raised-button>Store ansehen</button>
+        <button mat-raised-button routerLink="/store/{{store.id}}">Store ansehen</button>
         <button mat-raised-button>Kontakt</button>
         <mat-list-item *ngFor="let item of store.items">
           {{item.name}} - {{item.price}}

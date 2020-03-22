@@ -120,4 +120,8 @@ export class StoresService {
     this.cartCount$.next(this.cartCount$.getValue() + 1);
     this.cart$.next(Object.values(this.cart));
   }
+
+  getStore(id: number) {
+    return of(this.stores.find(store => store.id === id));
+  }
 }
