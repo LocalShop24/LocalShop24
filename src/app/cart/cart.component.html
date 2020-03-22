@@ -1,0 +1,16 @@
+<h2>Dein Warenkorb</h2>
+
+Folgende Produkte befinden sich aktuell in deinem Warenkorb.
+
+<p></p>
+<mat-card *ngFor="let store of cart$ | async">
+  <mat-card-title>
+    {{store.name}}
+  </mat-card-title>
+    <div *ngFor="let item of store.items" class="item">
+      {{item.name}} - {{item.price}}
+      <p>
+        1 Stück
+      </p>
+    </div>
+</mat-card>

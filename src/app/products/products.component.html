@@ -1,0 +1,13 @@
+<form [formGroup]="formGroup">
+  <mat-form-field class="itemFind">
+    <input type="text" matInput formControlName="search">
+    <mat-icon matSuffix>search</mat-icon>
+  </mat-form-field>
+</form>
+<p></p>
+
+<div *ngIf="(stores$ | async) as stores">
+  <div *ngFor="let store of stores">
+    <app-store-expansion [store]="store"></app-store-expansion>
+  </div>
+</div>

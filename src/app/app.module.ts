@@ -13,11 +13,18 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import {MatCardModule} from '@angular/material/card';
 import {MatButtonModule} from '@angular/material/button';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {MatListModule} from '@angular/material/list';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { ProductsComponent } from './products/products.component';
+import {MatBadgeModule} from '@angular/material/badge';
+import { CartComponent } from './cart/cart.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    StoreExpansionComponent
+    StoreExpansionComponent,
+    ProductsComponent,
+    CartComponent,
   ],
   imports: [
     MatExpansionModule,
@@ -32,6 +39,9 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     MatButtonModule,
     FormsModule,
     ReactiveFormsModule,
+    MatListModule,
+    MatSnackBarModule,
+    MatBadgeModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

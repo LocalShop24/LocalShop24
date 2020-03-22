@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {of} from 'rxjs';
+import {BehaviorSubject, of} from 'rxjs';
 
 export interface Store {
   id: number;
@@ -13,10 +13,21 @@ export interface Item {
   price: string;
 }
 
+function cloneStoreWithoutItems(store: Store): Store {
+  return {
+    id: store.id,
+    items: [],
+    distance: store.distance,
+    name: store.name
+  };
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class StoresService {
+
+  cart: { [key: number]: Store } = {};
 
   items: { [key: number]: Item[] } = {
     1: [
@@ -47,6 +58,9 @@ export class StoresService {
       items: this.items[4]},
   ];
 
+  cart$ = new BehaviorSubject([]);
+  cartCount$ = new BehaviorSubject(0);
+
   constructor() {
   }
 
@@ -69,5 +83,14 @@ export class StoresService {
       }
     });
     return of(result);
+  }
+
+  addToCart(store: Store, item: Item) {
+    if (!this.cart[store.id]) {
+      this.cart[store.id] = cloneStoreWithoutItems(store);
+    }
+    this.cart[store.id].items.push(item);
+    this.cartCount$.next(this.cartCount$.getValue() + 1);
+    this.cart$.next(Object.values(this.cart));
   }
 }

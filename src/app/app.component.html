@@ -1,21 +1,16 @@
 <mat-toolbar>
   <mat-icon>menu</mat-icon>
+  <h1><a routerLink="/">{{title}}</a></h1>
   <span class="fill"></span>
-  <mat-icon>shopping_basket</mat-icon>
+  <a routerLink="/cart">
+    <mat-icon matBadge="{{storesService.cartCount$ | async}}"
+              matBadgePosition="below before">shopping_basket
+    </mat-icon>
+  </a>
 </mat-toolbar>
 <div id="content">
-  <form [formGroup]="formGroup">
-    <mat-form-field class="itemFind">
-      <input type="text" matInput formControlName="search">
-      <mat-icon matSuffix>search</mat-icon>
-    </mat-form-field>
-  </form>
-  <p></p>
-
-  <div *ngIf="(stores$ | async) as stores">
-    <div *ngFor="let store of stores">
-      <app-store-expansion [store]="store"></app-store-expansion>
-    </div>
-  </div>
+  <router-outlet></router-outlet>
 </div>
-<router-outlet></router-outlet>
+<div class="github">
+  <a href="https://github.com/LocalShop24/LocalShop24">https://github.com/LocalShop24/LocalShop24</a>
+</div>
