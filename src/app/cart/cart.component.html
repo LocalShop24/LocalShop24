@@ -7,17 +7,29 @@ Folgende Produkte befinden sich aktuell in deinem Warenkorb.
   <mat-card-title>
     {{store.name}}
   </mat-card-title>
-  <div *ngFor="let item of getStoreItems(store)" class="item">
-    <div>
-      {{item.storeItem.name}} - {{item.storeItem.price}}
-      <p>
-        {{item.qty}} Stück
-      </p>
-    </div>
-    <div>
-      <button mat-mini-fab class="removeButton" (click)="removeItem(store, item)">
-        <mat-icon>remove</mat-icon>
-      </button>
+  <div *ngFor="let item of getStoreItems(store)">
+    <div class="item">
+      <div class="flex">
+        <div class="flexDiv">
+          {{item.storeItem.name}} - {{item.storeItem.price}}
+          <p>
+            {{item.qty}} Stück
+          </p>
+        </div>
+        <div class="flexDiv">
+          <!--      <button mat-mini-fab class="removeButton" (click)="removeItem(store, item)">-->
+          <!--        <mat-icon>remove</mat-icon>-->
+          <!--      </button>-->
+          <button mat-raised-button (click)="removeItem(store, item)">
+            löschen
+          </button>
+        </div>
+      </div>
+      <div class="addRemoveButton">
+        <button mat-mini-fab class="removeButton" (click)="removeQty(store, item)">
+          <mat-icon>remove</mat-icon>
+        </button>
+      </div>
     </div>
   </div>
 </mat-card>

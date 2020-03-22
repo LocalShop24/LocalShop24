@@ -174,4 +174,20 @@ export class StoresService {
     this.cart$.next(Object.values(this.cart));
     this.cartCount$.next(this.cartCount$.getValue() - 1);
   }
+
+  removeQty(store: CartStore, item: CartItem) {
+    if (!this.cart[store.id]) {
+      return;
+    }
+    const cartStore = this.cart[store.id];
+    if (cartStore.items[item.storeItem.name]) {
+      const cartItem = cartStore.items[item.storeItem.name];
+      cartItem.qty -= 1;
+      if (cartItem.qty === 0) {
+        this.removeItemFromCartStore(store, item);
+      } else {
+        this.cart$.next(Object.values(this.cart));
+      }
+    }
+  }
 }

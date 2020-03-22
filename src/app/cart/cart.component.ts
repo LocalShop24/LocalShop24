@@ -31,7 +31,7 @@ export class CartComponent implements OnInit {
   private calculateStoreSum(store: CartStore) {
     let sum = 0;
     Object.values(store.items).forEach(item => {
-      sum += item.storeItem.priceNumber;
+      sum += item.storeItem.priceNumber * item.qty;
     });
     return sum;
   }
@@ -42,5 +42,9 @@ export class CartComponent implements OnInit {
 
   getStoreItems(store: CartStore) {
     return Object.values(store.items);
+  }
+
+  removeQty(store: CartStore, item: CartItem) {
+    this.storesService.removeQty(store, item);
   }
 }
