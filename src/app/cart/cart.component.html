@@ -14,3 +14,12 @@ Folgende Produkte befinden sich aktuell in deinem Warenkorb.
       </p>
     </div>
 </mat-card>
+<p></p>
+<h3>Gesamt {{sum$ | async}}€</h3>
+<div *ngIf="(sum$ | async) > 0">
+  <p></p>
+  Die Lieferung deiner oben aufgeführten Bestellung erfolgt <b>kontaktlos</b> und <b>per
+  Lastenrad</b>.
+  <br>
+  <button mat-raised-button class="orderButton">Zur Kasse</button>
+</div>

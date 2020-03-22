@@ -21,8 +21,9 @@ export class StoreExpansionComponent implements OnInit {
   }
 
 
-  addToCard(store: Store, item: Item) {
-    this.snackBar.open(item.name + ' zum Warenkorb hinzugefügt');
+  addToCart(store: Store, item: Item) {
+    this.snackBar.open(item.name + ' zum Warenkorb hinzugefügt',
+      '', {duration: 1000});
     this.storeService.addToCart(store, item);
   }
 }

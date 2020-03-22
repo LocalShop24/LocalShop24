@@ -10,12 +10,29 @@ import {BehaviorSubject} from 'rxjs';
 export class CartComponent implements OnInit {
 
   cart$: BehaviorSubject<Store[]> = new BehaviorSubject([]);
+  sum$ = new BehaviorSubject(0);
 
   constructor(private storesService: StoresService) {
-    storesService.cart$.subscribe(cart => this.cart$.next(cart));
+    storesService.cart$.subscribe(cart => {
+      this.cart$.next(cart);
+      this.calculateSum(cart);
+    });
   }
 
   ngOnInit(): void {
   }
 
+  private calculateSum(cart: Store[]) {
+    let sum = 0;
+    cart.forEach(store => sum += this.calculateStoreSum(store));
+    this.sum$.next(sum);
+  }
+
+  private calculateStoreSum(store: Store) {
+    let sum = 0;
+    store.items.forEach(item => {
+      sum += item.priceNumber;
+    });
+    return sum;
+  }
 }

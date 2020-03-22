@@ -11,6 +11,7 @@ export interface Store {
 export interface Item {
   name: string;
   price: string;
+  priceNumber: number;
 }
 
 function cloneStoreWithoutItems(store: Store): Store {
@@ -31,20 +32,20 @@ export class StoresService {
 
   items: { [key: number]: Item[] } = {
     1: [
-      {name: 'Apfel', price: '1,00€'},
-      {name: 'Birne', price: '1,50€'},
+      {name: 'Apfel', price: '1,00€', priceNumber: 1},
+      {name: 'Birne', price: '2,00€', priceNumber: 2},
     ],
     2: [
-      {name: 'Honig', price: '9,00€'},
-      {name: 'Brokkoli', price: '5,00€'},
+      {name: 'Honig', price: '9,00€', priceNumber: 9},
+      {name: 'Brokkoli', price: '5,00€', priceNumber: 5},
     ],
     3: [
-      {name: 'Brot', price: '2,00€'},
-      {name: 'Brötchen', price: '1,00€'},
+      {name: 'Brot', price: '2,00€', priceNumber: 2},
+      {name: 'Brötchen', price: '1,00€', priceNumber: 1},
     ],
     4: [
-      {name: 'Eier', price: '3,00€'},
-      {name: 'Kartoffeln', price: '4,00€'},
+      {name: 'Eier', price: '3,00€', priceNumber: 3},
+      {name: 'Kartoffeln', price: '4,00€', priceNumber: 4},
     ]
   };
   stores: Store[] = [

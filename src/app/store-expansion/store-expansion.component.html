@@ -11,9 +11,11 @@
         </mat-panel-description>
       </mat-expansion-panel-header>
       <mat-list>
+        <button mat-raised-button>Store ansehen</button>
+        <button mat-raised-button>Kontakt</button>
         <mat-list-item *ngFor="let item of store.items">
           {{item.name}} - {{item.price}}
-          <button mat-mini-fab class="addToBasket" (click)="addToCard(store, item)">
+          <button mat-mini-fab class="addToBasket" (click)="addToCart(store, item)">
             <mat-icon>add</mat-icon>
           </button>
         </mat-list-item>
