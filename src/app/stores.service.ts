@@ -12,19 +12,28 @@ export interface Store {
   };
 }
 
+export interface CartItem {
+  storeItem: Item;
+  qty: number;
+}
+
+export interface CartStore {
+  id: number;
+  name: string;
+  items: {[key: string]: CartItem};
+}
+
 export interface Item {
   name: string;
   price: string;
   priceNumber: number;
 }
 
-function cloneStoreWithoutItems(store: Store): Store {
+function cloneStoreForCart(store: Store): CartStore {
   return {
     id: store.id,
-    items: [],
-    distance: store.distance,
+    items: {},
     name: store.name,
-    coordinates: store.coordinates,
   };
 }
 
@@ -33,7 +42,7 @@ function cloneStoreWithoutItems(store: Store): Store {
 })
 export class StoresService {
 
-  cart: { [key: number]: Store } = {};
+  cart: { [key: number]: CartStore } = {};
 
   items: { [key: number]: Item[] } = {
     1: [
@@ -113,15 +122,56 @@ export class StoresService {
   }
 
   addToCart(store: Store, item: Item) {
-    if (!this.cart[store.id]) {
-      this.cart[store.id] = cloneStoreWithoutItems(store);
+    const cartStore = this.getCartStore(store);
+    const cartItem = this.getCartItem(cartStore, item);
+    cartItem.qty += 1;
+    if (cartItem.qty === 1) {
+      this.cartCount$.next(this.cartCount$.getValue() + 1);
     }
-    this.cart[store.id].items.push(item);
-    this.cartCount$.next(this.cartCount$.getValue() + 1);
     this.cart$.next(Object.values(this.cart));
+  }
+
+  private getCartItem(cartStore: CartStore, item: Item) {
+    let cartItem: CartItem = cartStore.items[item.name];
+    if (!cartItem) {
+      cartItem = {
+        storeItem: item,
+        qty: 0
+      };
+      cartStore.items[item.name] = cartItem;
+    }
+    return cartItem;
+  }
+
+  private getCartStore(store: Store) {
+    let cartStore = this.cart[store.id];
+    if (!cartStore) {
+      cartStore = cloneStoreForCart(store);
+      this.cart[store.id] = cartStore;
+    }
+    return cartStore;
   }
 
   getStore(id: number) {
     return of(this.stores.find(store => store.id === id));
+  }
+
+  removeFromCart(store: CartStore, itemToRemove: CartItem) {
+    if (!this.cart[store.id]) {
+      return;
+    }
+    const cartStore = this.cart[store.id];
+    if (cartStore.items[itemToRemove.storeItem.name]) {
+      this.removeItemFromCartStore(cartStore, itemToRemove);
+    }
+  }
+
+  private removeItemFromCartStore(cartStore: CartStore, itemToRemove: CartItem) {
+    delete cartStore.items[itemToRemove.storeItem.name];
+    if (Object.keys(cartStore.items).length === 0) {
+      delete this.cart[cartStore.id];
+    }
+    this.cart$.next(Object.values(this.cart));
+    this.cartCount$.next(this.cartCount$.getValue() - 1);
   }
 }

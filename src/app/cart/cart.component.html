@@ -7,12 +7,19 @@ Folgende Produkte befinden sich aktuell in deinem Warenkorb.
   <mat-card-title>
     {{store.name}}
   </mat-card-title>
-    <div *ngFor="let item of store.items" class="item">
-      {{item.name}} - {{item.price}}
+  <div *ngFor="let item of getStoreItems(store)" class="item">
+    <div>
+      {{item.storeItem.name}} - {{item.storeItem.price}}
       <p>
-        1 Stück
+        {{item.qty}} Stück
       </p>
     </div>
+    <div>
+      <button mat-mini-fab class="removeButton" (click)="removeItem(store, item)">
+        <mat-icon>remove</mat-icon>
+      </button>
+    </div>
+  </div>
 </mat-card>
 <p></p>
 <h3>Gesamt {{sum$ | async}}€</h3>
@@ -22,4 +29,8 @@ Folgende Produkte befinden sich aktuell in deinem Warenkorb.
   Lastenrad</b>.
   <br>
   <button mat-raised-button class="orderButton">Zur Kasse</button>
+</div>
+<br>
+<div class="center">
+  <button mat-raised-button routerLink="/products">Weiter einkaufen</button>
 </div>

@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import {Store, StoresService} from '../stores.service';
+import {Component, OnInit} from '@angular/core';
+import {CartItem, CartStore, StoresService} from '../stores.service';
 import {BehaviorSubject} from 'rxjs';
 
 @Component({
@@ -9,7 +9,7 @@ import {BehaviorSubject} from 'rxjs';
 })
 export class CartComponent implements OnInit {
 
-  cart$: BehaviorSubject<Store[]> = new BehaviorSubject([]);
+  cart$: BehaviorSubject<CartStore[]> = new BehaviorSubject([]);
   sum$ = new BehaviorSubject(0);
 
   constructor(private storesService: StoresService) {
@@ -22,17 +22,25 @@ export class CartComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  private calculateSum(cart: Store[]) {
+  private calculateSum(cart: CartStore[]) {
     let sum = 0;
     cart.forEach(store => sum += this.calculateStoreSum(store));
     this.sum$.next(sum);
   }
 
-  private calculateStoreSum(store: Store) {
+  private calculateStoreSum(store: CartStore) {
     let sum = 0;
-    store.items.forEach(item => {
-      sum += item.priceNumber;
+    Object.values(store.items).forEach(item => {
+      sum += item.storeItem.priceNumber;
     });
     return sum;
+  }
+
+  removeItem(store: CartStore, item: CartItem) {
+    this.storesService.removeFromCart(store, item);
+  }
+
+  getStoreItems(store: CartStore) {
+    return Object.values(store.items);
   }
 }
