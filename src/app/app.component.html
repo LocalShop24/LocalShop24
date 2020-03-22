@@ -4,10 +4,12 @@
   <mat-icon>shopping_basket</mat-icon>
 </mat-toolbar>
 <div id="content">
-  <mat-form-field class="itemFind">
-    <input type="text" matInput>
-    <mat-icon matSuffix>search</mat-icon>
-  </mat-form-field>
+  <form [formGroup]="formGroup">
+    <mat-form-field class="itemFind">
+      <input type="text" matInput formControlName="search">
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+  </form>
   <p></p>
 
   <div *ngIf="(stores$ | async) as stores">
