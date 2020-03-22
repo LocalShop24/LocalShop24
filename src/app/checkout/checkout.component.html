@@ -1,0 +1,50 @@
+<h2>Kasse</h2>
+
+<h3>Als Gast bestellen</h3>
+<a href="#">Bereits Kunde? Zum Login</a>
+<p></p>
+<h3>Deine Lieferadresse</h3>
+<form>
+  <mat-form-field>
+    <input matInput placeholder="Vor- und Nachname">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Straße & Hausnummer">
+  </mat-form-field>
+  <div class="flex">
+    <mat-form-field class="flexElement">
+      <input matInput placeholder="PLZ">
+    </mat-form-field>
+    <mat-form-field class="flexElement secondElement">
+      <input matInput placeholder="Ort">
+    </mat-form-field>
+  </div>
+  <mat-form-field>
+    <input matInput placeholder="Hinweis zu Etage / Hinterhaus etc.">
+  </mat-form-field>
+  <mat-checkbox>Rechnugsadresse gleich Lieferadresse</mat-checkbox>
+</form>
+
+<h4>Deine Kontaktdaten</h4>
+<mat-form-field>
+  <input matInput placeholder="E-Mail">
+</mat-form-field>
+<mat-form-field>
+  <input matInput placeholder="Telefon für Rückfragen">
+</mat-form-field>
+
+<h4>Bezahlung</h4>
+
+<button mat-raised-button>Bar bei Lieferung</button>
+<p></p>
+<button mat-raised-button>PayPal / Kreditkarte / Lastschrift</button>
+<p></p>
+<button mat-raised-button>Klarna / Sofortüberweisung</button>
+<p></p>
+<mat-checkbox></mat-checkbox> Hiermit bestätige ich, dass ich die Datenschutzerklärung gelesen
+habe und damit einverstanden bin.
+<p></p>
+<mat-checkbox></mat-checkbox> Hiermit bestätige ich, dass ich die AGB und
+Widerrufsbestimmungen gelesen habe und diese akzeptiere.
+<p></p>
+<button mat-raised-button class="greenButton">Zahlungspflichtig kaufen</button>

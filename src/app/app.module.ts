@@ -21,6 +21,8 @@ import {CartComponent} from './cart/cart.component';
 import {StoreViewComponent} from './store-view/store-view.component';
 import {NgChatModule} from 'ng-chat';
 import {LandingPageComponent} from './landing-page/landing-page.component';
+import {CheckoutComponent} from './checkout/checkout.component';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
@@ -30,6 +32,7 @@ import {LandingPageComponent} from './landing-page/landing-page.component';
     CartComponent,
     StoreViewComponent,
     LandingPageComponent,
+    CheckoutComponent,
   ],
   imports: [
     MatExpansionModule,
@@ -48,6 +51,7 @@ import {LandingPageComponent} from './landing-page/landing-page.component';
     MatSnackBarModule,
     MatBadgeModule,
     NgChatModule,
+    MatCheckboxModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

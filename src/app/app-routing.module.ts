@@ -4,6 +4,7 @@ import {ProductsComponent} from './products/products.component';
 import {CartComponent} from './cart/cart.component';
 import {StoreViewComponent} from './store-view/store-view.component';
 import {LandingPageComponent} from './landing-page/landing-page.component';
+import {CheckoutComponent} from './checkout/checkout.component';
 
 
 const routes: Routes = [
@@ -11,6 +12,7 @@ const routes: Routes = [
   {path: 'store/:id', component: StoreViewComponent},
   {path: 'products/:search', component: ProductsComponent},
   {path: 'products', component: ProductsComponent},
+  {path: 'checkout', component: CheckoutComponent},
   {path: '**', component: LandingPageComponent}
 ];
 
