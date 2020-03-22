@@ -1,6 +1,10 @@
-# Demo
+# Live
 
-Running demo: https://dev.achim-rohn.de/
+http://localshop24.de
+
+# Dev version
+
+https://dev.achim-rohn.de/
 
 # Localshop24
 
