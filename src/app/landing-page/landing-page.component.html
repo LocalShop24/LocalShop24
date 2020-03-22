@@ -10,7 +10,8 @@
 </mat-form-field>
 <p></p>
 <mat-form-field>
-  <input matInput placeholder="Produktsuche" #search>
+  <input matInput placeholder="Produktsuche" #search
+         (keydown.enter)="onSearch(search.value)">
   <mat-icon matSuffix>search</mat-icon>
 </mat-form-field>
 <p></p>
