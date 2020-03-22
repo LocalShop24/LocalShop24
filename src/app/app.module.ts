@@ -19,9 +19,8 @@ import {ProductsComponent} from './products/products.component';
 import {MatBadgeModule} from '@angular/material/badge';
 import {CartComponent} from './cart/cart.component';
 import {StoreViewComponent} from './store-view/store-view.component';
-import {NgCompilerHost} from '@angular/compiler-cli/src/ngtsc/core';
-import {NgChat} from 'ng-chat/ng-chat/ng-chat.component';
 import {NgChatModule} from 'ng-chat';
+import {LandingPageComponent} from './landing-page/landing-page.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +29,7 @@ import {NgChatModule} from 'ng-chat';
     ProductsComponent,
     CartComponent,
     StoreViewComponent,
+    LandingPageComponent,
   ],
   imports: [
     MatExpansionModule,

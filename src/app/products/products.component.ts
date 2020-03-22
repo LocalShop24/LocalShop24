@@ -2,8 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {BehaviorSubject} from 'rxjs';
 import {FormControl, FormGroup} from '@angular/forms';
 import {Store, StoresService} from '../stores.service';
-import {debounceTime, switchMap} from 'rxjs/operators';
-import {Router} from '@angular/router';
+import {debounceTime, map, skipWhile, switchMap} from 'rxjs/operators';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Location} from '@angular/common';
 
 declare var ol: any;
 declare const OpenLayers: any;
@@ -22,7 +23,9 @@ export class ProductsComponent implements OnInit {
   map: any;
 
   constructor(public storesService: StoresService,
-              private router: Router) {
+              private router: Router,
+              private activatedRoute: ActivatedRoute,
+              private location: Location) {
     storesService.getStores().subscribe(next => this.stores$.next(next));
   }
 
@@ -33,13 +36,15 @@ export class ProductsComponent implements OnInit {
     });
     this.subscribeToSearch(searchControl);
     this.initMap();
+    this.checkForSearch(searchControl);
   }
 
   private subscribeToSearch(searchControl: FormControl) {
     searchControl.valueChanges.pipe(
       debounceTime(500),
-      switchMap(result => {
-        return this.storesService.searchForItem(result);
+      switchMap(query => {
+        this.location.go('/products/' + query);
+        return this.storesService.searchForItem(query);
       }),
     ).subscribe(result => {
       this.stores$.next(result);
@@ -102,5 +107,12 @@ export class ProductsComponent implements OnInit {
 
   private storeClick(store: Store) {
     this.router.navigateByUrl('/store/' + store.id);
+  }
+
+  private checkForSearch(searchControl: FormControl) {
+    this.activatedRoute.paramMap.pipe(
+      skipWhile(paramMap => !paramMap.has('search')),
+      map(paramMap => paramMap.get('search'))
+    ).subscribe(searchValue => searchControl.setValue(searchValue));
   }
 }

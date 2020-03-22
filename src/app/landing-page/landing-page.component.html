@@ -1,0 +1,21 @@
+<mat-card>
+  <mat-card-title>Bestelle Produkte aus deiner Umgebung und
+    unterstütze lokale Stores
+  </mat-card-title>
+</mat-card>
+<p></p>
+<mat-form-field>
+  <input matInput placeholder="Ort" value="Berlin">
+  <mat-icon matSuffix>location_searching</mat-icon>
+</mat-form-field>
+<p></p>
+<mat-form-field>
+  <input matInput placeholder="Produktsuche" #search>
+  <mat-icon matSuffix>search</mat-icon>
+</mat-form-field>
+<p></p>
+<div id="searchDiv">
+  <button mat-raised-button (click)="onSearch(search.value)" id="searchButton">
+    Jetzt suchen
+  </button>
+</div>
