@@ -2,3 +2,8 @@
   <mat-card-title>{{store.name}}</mat-card-title>
   <mat-card-subtitle>{{store.distance}}</mat-card-subtitle>
 </mat-card>
+
+<ng-chat [adapter]="adapter" [userId]="999" [historyEnabled]="true"
+         [historyPageSize]="4" [hideFriendsList]="false"
+         (onMessagesSeen)="messageSeen($event)"
+         title="Kontakt"></ng-chat>

@@ -3,6 +3,8 @@ import {Store, StoresService} from '../stores.service';
 import {BehaviorSubject} from 'rxjs';
 import {ActivatedRoute} from '@angular/router';
 import {mergeMap, skipWhile} from 'rxjs/operators';
+import {ChatAdapter} from 'ng-chat';
+import {DemoAdapter} from '../chat-demo-adapter';
 
 @Component({
   selector: 'app-store-view',
@@ -12,6 +14,9 @@ import {mergeMap, skipWhile} from 'rxjs/operators';
 export class StoreViewComponent implements OnInit {
 
   store$: BehaviorSubject<Store> = new BehaviorSubject<Store>(undefined);
+
+  public adapter: ChatAdapter = new DemoAdapter();
+
 
   constructor(private storesService: StoresService,
               private activatedRoute: ActivatedRoute) { }
@@ -26,4 +31,8 @@ export class StoreViewComponent implements OnInit {
     });
   }
 
+  public messageSeen(event: any)
+  {
+    console.log(event);
+  }
 }
