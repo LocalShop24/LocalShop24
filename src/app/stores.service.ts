@@ -6,6 +6,10 @@ export interface Store {
   name: string;
   distance: string;
   items: Item[];
+  coordinates: {
+    latitude: number;
+    longitude: number;
+  };
 }
 
 export interface Item {
@@ -19,7 +23,8 @@ function cloneStoreWithoutItems(store: Store): Store {
     id: store.id,
     items: [],
     distance: store.distance,
-    name: store.name
+    name: store.name,
+    coordinates: store.coordinates,
   };
 }
 
@@ -49,14 +54,34 @@ export class StoresService {
     ]
   };
   stores: Store[] = [
-    {id: 1, name: 'DER Bioladen Nienburg', distance: '300m',
-      items: this.items[1]},
-    {id: 2, name: 'Lehmanns bioladen', distance: '500m',
-      items: this.items[2]},
-    {id: 3, name: 'Kornkraft um die Ecke', distance: '400m',
-      items: this.items[3]},
-    {id: 4, name: 'LIENSFELDER Landhof', distance: '2km',
-      items: this.items[4]},
+    {
+      id: 1, name: 'DER Bioladen Nienburg', distance: '300m',
+      items: this.items[1], coordinates: {
+        latitude: 52.513760,
+        longitude: 13.381515
+      }
+    },
+    {
+      id: 2, name: 'Lehmanns bioladen', distance: '500m',
+      items: this.items[2], coordinates: {
+        latitude: 52.519871,
+        longitude: 13.393252
+      }
+    },
+    {
+      id: 3, name: 'Kornkraft um die Ecke', distance: '400m',
+      items: this.items[3], coordinates: {
+        latitude: 52.517729,
+        longitude: 13.391149,
+      }
+    },
+    {
+      id: 4, name: 'LIENSFELDER Landhof', distance: '2km',
+      items: this.items[4], coordinates: {
+        latitude: 52.513120,
+        longitude: 13.386536,
+      }
+    },
   ];
 
   cart$ = new BehaviorSubject([]);
@@ -79,7 +104,8 @@ export class StoresService {
           id: store.id,
           name: store.name,
           distance: store.distance,
-          items: filteredItems
+          items: filteredItems,
+          coordinates: store.coordinates
         });
       }
     });
